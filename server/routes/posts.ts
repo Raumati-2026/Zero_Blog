@@ -18,6 +18,19 @@ router.get('/', async (req, res) => {
   }
 })
 
+// GET http://localhost:3000/api/v1/posts:id
+
+router.get('/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  try {
+    const post = await db.getPosts(id)
+    res.json({ post })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Something went wrong')
+  }
+})
+
 // POST http://localhost:3000/api/v1/posts
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
