@@ -7,7 +7,7 @@ import PostPage from './components/PostPage'
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<Home />} />
-    <Route path="/entry" element={<PostPage />} />
+    <Route path="/entry/:id" element={<PostPage />} />
   </Route>,
 )
 
