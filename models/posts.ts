@@ -1,10 +1,17 @@
 export interface Post {
   id: number
   title: string
-  content: string
+  entry: string
+  date: string // knex date comes back as string
+  author_id: number
+  topic: string
 }
 
+// for PATCH / updates
 export interface PostData {
   title?: string
-  content?: string
+  entry?: string
+  date?: string
+  author_id?: number
+  topic?: string
 }
