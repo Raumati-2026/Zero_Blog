@@ -11,7 +11,9 @@ function Home() {
   const { data, isPending, isError, error, isSuccess } = usePosts()
 
   if (isPending) {
-    return <div>Loading thing</div>
+    return (
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+    )
   }
 
   if (isError) {
