@@ -1,26 +1,17 @@
-function PostCard() {
-  const post_data = {
-    id: 1,
-    title: 'Example Post',
-    entry: 'Mucho words fr fr',
-    date: 'Thu Mar 26 2020 15:16:52 GMT+1300 (New Zealand Daylight Time)',
-    author_name: 'test user',
-    topic: 'Test topic',
-  }
-
-  const date = new Date(post_data.date)
-  const formattedDate = date.toLocaleDateString()
+function PostCard({ title, entry, date }) {
+  const date_1 = new Date(date)
+  const formattedDate = date_1.toLocaleDateString()
 
   return (
     <div className="rounded-xl border-2 p-6 shadow-lg">
       <div className="flex items-baseline justify-between">
-        <h1 className="text-5xl">{post_data.title}</h1>
+        <h1 className="text-5xl">{title}</h1>
         <p>{formattedDate}</p>
       </div>
       <hr className="my-5 border-t-2 " />
-      <p className="text-lg">{post_data.entry}</p>
+      <p className="text-lg">{entry}</p>
       <hr className="my-5 border-t-2 " />
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <img
           className="w-20 rounded-full"
           alt="pfp"
