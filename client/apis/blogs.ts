@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { Post, PostData } from '../../models/post'
+import { Post, PostData } from '../../models/posts'
 const rootURL = new URL(`/api/v1`, document.baseURI)
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 

@@ -1,4 +1,10 @@
 import { useState } from "react"
+import { PostData } from "../../models/posts"
+
+interface Props {
+  onAdd: (post: PostData) => void
+}
+
 
 const defaultFormState = {
   title: 'Your Title',
@@ -7,11 +13,13 @@ const defaultFormState = {
   topic: 'Your topic',
 }
 
-function AddForm() {
+function AddForm({onAdd}: Props) {
     const [formData, setFormData] = useState(defaultFormState)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+
+        onAdd(formData)
     }
 
     const handleChange = (

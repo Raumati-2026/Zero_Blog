@@ -4,7 +4,7 @@ import {
   useQueryClient,
   MutationFunction,
 } from '@tanstack/react-query'
-import { getPosts, getPostsById } from '../apis/blogs.ts'
+import { getPosts, getPostsById, addPost } from '../apis/blogs.ts'
 
 export function usePosts() {
   const query = useQuery({
@@ -14,6 +14,7 @@ export function usePosts() {
   return {
     ...query,
     // Extra queries go here e.g. addFruit: useAddFruit()
+    add: useAddPost()
   }
 }
 
@@ -43,6 +44,6 @@ export function useFruitsMutation<TData = unknown, TVariables = unknown>(
 }
 
 // Query functions go here e.g. useAddFruit
-/* function useAddFruit() {
-  return useFruitsMutation(addFruit)
-} */
+export function useAddPost() {
+  return useFruitsMutation(addPost)
+}
