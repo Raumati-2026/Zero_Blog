@@ -1,10 +1,9 @@
 export interface User {
   id: number
-  username: string
-  email: string
+  name: string
 }
 
+// for PATCH / updates
 export interface UserData {
-  username?: string
-  email?: string
+  name?: string
 }
