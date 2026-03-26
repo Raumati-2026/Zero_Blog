@@ -6,6 +6,24 @@ export async function getPosts(): Promise<Post[]> {
   return db('blog_entry').select()
 }
 
+//GET one post by id
+export async function getPostById(id: number): Promise<Post | undefined> {
+  return db('blog_entry').where({ id }).first()
+}
+
+//ADD new post
+export async function addPost(post: PostData, auth0Id: string): Promise<Post> {
+  const [newPost] = await db('blog_entry')
+    .insert({
+      ...post,
+      author_id: Number(auth0Id),
+    })
+    .returning(['id', 'title', 'entry', 'date', 'author_id', 'topic'])
+
+  return newPost
+  console.log(addPost)
+}
+
 // DELETE post by id
 export async function deletePostById(id: number): Promise<number> {
   return db('blog_entry').where({ id }).del()
@@ -19,14 +37,11 @@ export async function updatePostById(
   return db('blog_entry').where({ id }).update(newProperties)
 }
 
-export async function userCanEdit(
-  postId: number,
-  auth0Id: string,
-) {
+export async function userCanEdit(postId: number, auth0Id: string) {
   return db('blog_entry')
     .where({ id: postId })
     .first()
-    .then((post : PostData) => {
+    .then((post: PostData) => {
       if (post.author_id !== Number(auth0Id)) {
         throw new Error('Unauthorized')
       }
