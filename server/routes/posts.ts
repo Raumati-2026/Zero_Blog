@@ -2,7 +2,7 @@ import express from 'express'
 import * as db from '../db/posts.ts'
 import { JwtRequest } from '../auth0.ts'
 import checkJwt from '../auth0.ts'
-// import { PostData } from '../../models/posts.ts'
+import { PostData } from '../../models/posts.ts'
 
 const router = express.Router()
 
@@ -33,29 +33,29 @@ router.get('/', async (req, res) => {
 
 // POST http://localhost:3000/api/v1/posts - Add post
 
-// router.post('/', checkJwt, async (req: JwtRequest, res) => {
-//   const { post } = req.body as { post: PostData }
-//   const auth0Id = req.auth?.sub
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
+  const { post } = req.body as { post: PostData }
+  const auth0Id = req.auth?.sub
 
-//   if (!post) {
-//     console.error('Bad request: missing post data')
-//     return res.status(400).send('Bad request: post data is required')
-//   }
+  if (!post) {
+    console.error('Bad request: missing post data')
+    return res.status(400).send('Bad request: post data is required')
+  }
 
-//   if (!auth0Id) {
-//     console.error('No auth0Id')
-//     return res.status(401).send('Unauthorized')
-//   }
+  if (!auth0Id) {
+    console.error('No auth0Id')
+    return res.status(401).send('Unauthorized')
+  }
 
-//   try {
-//     const newPost = await db.addPost(post, auth0Id)
+  try {
+    const newPost = await db.addPost(post, auth0Id)
 
-//     res.status(201).json({ post: newPost })
-//   } catch (error) {
-//     console.error(error)
-//     res.status(500).send('Something went wrong')
-//   }
-// })
+    res.status(201).json({ post: newPost })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Something went wrong')
+  }
+})
 
 // DELETE http://localhost:3000/api/v1/posts/:id - delete post by id
 

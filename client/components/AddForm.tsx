@@ -48,7 +48,7 @@ function AddForm({onAdd}: Props) {
                 <input
                 type="text"
                 id="title"
-                name="tile"
+                name="title"
                 value={formData.title}
                 onChange={handleChange}
                 className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
