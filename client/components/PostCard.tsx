@@ -1,4 +1,4 @@
-export function Post() {
+function PostCard() {
   const post_data = {
     id: 1,
     title: 'Example Post',
@@ -12,7 +12,7 @@ export function Post() {
   const formattedDate = date.toLocaleDateString()
 
   return (
-    <div>
+    <div className="rounded-xl border-2 p-6 shadow-lg">
       <div className="flex items-baseline justify-between">
         <h1 className="text-5xl">{post_data.title}</h1>
         <p>{formattedDate}</p>
@@ -20,7 +20,7 @@ export function Post() {
       <hr className="my-5 border-t-2 " />
       <p className="text-lg">{post_data.entry}</p>
       <hr className="my-5 border-t-2 " />
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         <img
           className="w-20 rounded-full"
           alt="pfp"
@@ -31,3 +31,5 @@ export function Post() {
     </div>
   )
 }
+
+export default PostCard
