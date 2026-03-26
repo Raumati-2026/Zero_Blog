@@ -12,7 +12,7 @@ function PostPage() {
   const formattedDate = date.toLocaleDateString()
 
   return (
-    <div className="rounded-xl border-2 p-6 shadow-lg">
+    <div className="p-6">
       <div className="flex items-baseline justify-between">
         <h1 className="text-5xl">{post_data.title}</h1>
         <p>{formattedDate}</p>
