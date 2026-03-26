@@ -1,4 +1,8 @@
+import { useParams } from 'react-router'
+
 function PostPage() {
+  const { entryId } = useParams()
+  console.log(entryId)
   const post_data = {
     id: 1,
     title: 'Example Post',
