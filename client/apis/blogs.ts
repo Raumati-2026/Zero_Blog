@@ -3,6 +3,15 @@ import { Post, PostData } from '../../models/post'
 const rootURL = new URL(`/api/v1`, document.baseURI)
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+export async function getPostsById(id: string): Promise<Post> {
+  await sleep(1500)
+
+  return request
+    .get(`${rootURL}/posts/${id}`)
+    .then((res) => res.body.posts)
+    .catch(logError)
+}
+
 export async function getPosts(): Promise<Post[]> {
   await sleep(1500)
 
