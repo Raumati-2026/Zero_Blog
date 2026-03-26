@@ -16,12 +16,11 @@ export async function addPost(post: PostData, auth0Id: string): Promise<Post> {
   const [newPost] = await db('blog_entry')
     .insert({
       ...post,
-      author_id: Number(auth0Id),
+      author_id: auth0Id,
     })
     .returning(['id', 'title', 'entry', 'date', 'author_id', 'topic'])
 
   return newPost
-  console.log(addPost)
 }
 
 // DELETE post by id

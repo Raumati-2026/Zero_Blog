@@ -1,5 +1,5 @@
 export interface Post {
-  id: number
+  id: string
   title: string
   entry: string
   date: string // knex date comes back as string
