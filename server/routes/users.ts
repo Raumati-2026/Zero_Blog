@@ -1,7 +1,7 @@
 import express from 'express'
-import * as db from '../db/fruits.ts'
-import { JwtRequest } from '../auth0.ts'
-import checkJwt from '../auth0.ts'
+import * as db from '../db/users.ts'
+// import { JwtRequest } from '../auth0.ts'
+// import checkJwt from '../auth0.ts'
 
 const router = express.Router()
 
@@ -9,7 +9,7 @@ const router = express.Router()
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const user = await db.getUsersById(id)
+    const user = await db.getUserById(id)
     if (!user) {
       return res.status(404).send('User not found')
     }
