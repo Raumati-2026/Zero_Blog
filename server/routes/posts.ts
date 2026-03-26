@@ -1,12 +1,12 @@
 import express from 'express'
-import * as db from '../db/fruits.ts'
+import * as db from '../db/posts.ts'
 import { JwtRequest } from '../auth0.ts'
 import checkJwt from '../auth0.ts'
-import { Post, PostData } from '../../models/post.ts'
+// import { PostData } from '../../models/posts.ts'
 
 const router = express.Router()
 
-// GET http://localhost:3000/api/v1/posts
+// GET http://localhost:3000/api/v1/posts - Get All posts
 
 router.get('/', async (req, res) => {
   try {
@@ -18,78 +18,46 @@ router.get('/', async (req, res) => {
   }
 })
 
-// GET http://localhost:3000/api/v1/posts:id
+// GET http://localhost:3000/api/v1/posts:id - Get post by id
 
-router.get('/:id', async (req, res) => {
-  const id = Number(req.params.id)
-  try {
-    const post = await db.getPosts(id)
-    res.json({ post })
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Something went wrong')
-  }
-})
+// router.get('/:id', async (req, res) => {
+//   const id = Number(req.params.id)
+//   try {
+//     const post = await db.getPosts(id)
+//     res.json({ post })
+//   } catch (error) {
+//     console.error(error)
+//     res.status(500).send('Something went wrong')
+//   }
+// })
 
-// POST http://localhost:3000/api/v1/posts
+// POST http://localhost:3000/api/v1/posts - Add post
 
-router.post('/', checkJwt, async (req: JwtRequest, res) => {
-  const { post } = req.body as { post: PostData }
-  const auth0Id = req.auth?.sub
+// router.post('/', checkJwt, async (req: JwtRequest, res) => {
+//   const { post } = req.body as { post: PostData }
+//   const auth0Id = req.auth?.sub
 
-  if (!post) {
-    console.error('Bad request: missing post data')
-    return res.status(400).send('Bad request: post data is required')
-  }
+//   if (!post) {
+//     console.error('Bad request: missing post data')
+//     return res.status(400).send('Bad request: post data is required')
+//   }
 
-  if (!auth0Id) {
-    console.error('No auth0Id')
-    return res.status(401).send('Unauthorized')
-  }
+//   if (!auth0Id) {
+//     console.error('No auth0Id')
+//     return res.status(401).send('Unauthorized')
+//   }
 
-  try {
-    const newPost = await db.addPost(post, auth0Id)
+//   try {
+//     const newPost = await db.addPost(post, auth0Id)
 
-    res.status(201).json({ post: newPost })
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Something went wrong')
-  }
-})
+//     res.status(201).json({ post: newPost })
+//   } catch (error) {
+//     console.error(error)
+//     res.status(500).send('Something went wrong')
+//   }
+// })
 
-// PUT http://localhost:3000/api/v1/posts:id
-
-router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
-  const { post } = req.body as { post: PostData }
-  const auth0Id = req.auth?.sub
-
-  const id = Number(req.params.id)
-
-  if (!post || !id) {
-    console.error('Bad request - missing post data or id')
-    return res.status(400).send('Bad request')
-  }
-
-  if (!auth0Id) {
-    console.error('No auth0Id')
-    return res.status(401).send('Unauthorized')
-  }
-
-  try {
-    await db.userCanEdit(id, auth0Id)
-    const updatedPost = await db.db.updatePostById(id, post)
-
-    res.status(200).json({ post: updatedPost })
-  } catch (error) {
-    if (error instanceof Error && error.message === 'Unauthorized') {
-      return res
-        .status(403)
-        .send('Forbidden: Only the creator can update this post')
-    }
-  }
-})
-
-// DELETE http://localhost:3000/api/v1/posts/:id
+// DELETE http://localhost:3000/api/v1/posts/:id - delete post by id
 
 router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
@@ -107,7 +75,7 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
 
   try {
     await db.userCanEdit(id, auth0Id)
-    await db.deletePost(id)
+    await db.deletePostById(id)
 
     res.sendStatus(200)
   } catch (error) {
