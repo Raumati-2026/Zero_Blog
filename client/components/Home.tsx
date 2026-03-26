@@ -1,14 +1,26 @@
 import PostCard from './PostCard'
 import AddForm from './AddForm'
 import { useAuth0 } from '@auth0/auth0-react'
-import { usePosts } from '../hooks/useFruits'
+import { usePosts } from '../hooks/usePost'
+import { PostData } from '../../models/posts'
 
 function Home() {
+  const { getAccessTokenSilently } = useAuth0()  
   const auth = useAuth0()
   const user = auth.user
 
   //custom get all post hook
   const { data, isPending, isError, error, isSuccess } = usePosts()
+  const posts = usePosts()
+
+  const handleAdd = async (post: PostData) => {
+    try {
+      const token = await getAccessTokenSilently()
+      posts.add.mutate({ post, token })
+    } catch (err) {
+      console.error('Error getting token', err)
+    }
+  }
 
   if (isPending) {
     return (
@@ -25,7 +37,7 @@ function Home() {
       <main className="p-6">
         <h1 className="text-6xl font-bold">Welcome to Zero Blog</h1>
 
-        {user && <AddForm />}
+        {user && <AddForm onAdd={handleAdd}/>}
 
         <h2 className="mt-6 text-6xl font-bold">Blogs</h2>
 

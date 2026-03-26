@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { usePostId } from '../hooks/useFruits'
+import { usePostId } from '../hooks/usePost'
 
 function PostPage() {
   const { id } = useParams()
