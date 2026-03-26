@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * TODO: replace domain, clientId, and audience
      */
     <Auth0Provider
-      domain=""
-      clientId=""
+      domain="phoebe-raumati-2026.au.auth0.com"
+      clientId="51W1bfY5avovEY5EYs6xvVcuU245MAhj"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://blogs/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
