@@ -8,7 +8,7 @@ export async function getPostsById(id: string): Promise<Post> {
 
   return request
     .get(`${rootURL}/posts/${id}`)
-    .then((res) => res.body.posts)
+    .then((res) => res.body.post)
     .catch(logError)
 }
 

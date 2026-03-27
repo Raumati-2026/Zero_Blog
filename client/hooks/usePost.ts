@@ -8,19 +8,19 @@ import { getPosts, getPostsById, addPost } from '../apis/blogs.ts'
 
 export function usePosts() {
   const query = useQuery({
-    queryKey: ['fruits'],
+    queryKey: ['posts'],
     queryFn: () => getPosts(),
   })
   return {
     ...query,
     // Extra queries go here e.g. addFruit: useAddFruit()
-    add: useAddPost()
+    add: useAddPost(),
   }
 }
 
 export function usePostId(id: string) {
   const query = useQuery({
-    queryKey: ['fruits'],
+    queryKey: ['post', id],
     queryFn: () => getPostsById(id),
   })
   return {
@@ -36,7 +36,7 @@ export function useFruitsMutation<TData = unknown, TVariables = unknown>(
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['fruits'] })
+      queryClient.invalidateQueries({ queryKey: ['post'] })
     },
   })
 
