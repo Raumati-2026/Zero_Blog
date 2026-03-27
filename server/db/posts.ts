@@ -23,6 +23,18 @@ export async function addPost(post: PostData, auth0Id: string): Promise<Post> {
   return newPost
 }
 
+// Check if user exists, if not insert them
+export async function ensureUserExists(auth0Id: string, fullName: string) {
+  const existingUser = await db('users').where({ id: auth0Id }).first()
+  if (!existingUser) {
+    await db('users').insert({
+      id: auth0Id,
+      full_name: fullName,
+    })
+  }
+  return existingUser || { id: auth0Id, full_name: fullName }
+}
+
 // DELETE post by id
 export async function deletePostById(id: number): Promise<number> {
   return db('blog_entry').where({ id }).del()
