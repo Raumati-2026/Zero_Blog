@@ -5,7 +5,7 @@ import { usePosts } from '../hooks/usePost'
 import { PostData } from '../../models/posts'
 
 function Home() {
-  const { getAccessTokenSilently } = useAuth0()  
+  const { getAccessTokenSilently } = useAuth0()
   const auth = useAuth0()
   const user = auth.user
 
@@ -37,7 +37,7 @@ function Home() {
       <main className="p-6">
         <h1 className="text-6xl font-bold">Welcome to Zero Blog</h1>
 
-        {user && <AddForm onAdd={handleAdd}/>}
+        {user && <AddForm onAdd={handleAdd} />}
 
         <h2 className="mt-6 text-6xl font-bold">Blogs</h2>
 
@@ -47,6 +47,7 @@ function Home() {
               title={post.title}
               entry={post.entry}
               date={post.date}
+              id={post.id}
               key={post.id}
             />
           ))}

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 import { usePostId } from '../hooks/usePost'
 
 function PostPage() {
@@ -19,6 +19,9 @@ function PostPage() {
   if (isSuccess) {
     return (
       <div className="p-6">
+        <Link className="border-2 border-black px-2  text-black " to={'/'}>
+          Home
+        </Link>
         <div className="flex items-baseline justify-between">
           <h1 className="text-5xl">{data.title}</h1>
           <p>{formattedDate}</p>
