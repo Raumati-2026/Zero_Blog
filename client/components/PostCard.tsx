@@ -1,9 +1,16 @@
-function PostCard({ title, entry, date }) {
+import { useNavigate } from 'react-router'
+
+function PostCard({ title, entry, date, id }) {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`entry/${id}`)
+  }
   const date_1 = new Date(date)
   const formattedDate = date_1.toLocaleDateString()
 
   return (
-    <div className="rounded-xl border-2 p-6 shadow-lg">
+    <div onClick={handleClick} className="rounded-xl border-2 p-6 shadow-lg">
       <div className="flex items-baseline justify-between">
         <h1 className="text-5xl">{title}</h1>
         <p>{formattedDate}</p>
