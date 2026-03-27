@@ -24,15 +24,19 @@ export async function addPost(post: PostData, auth0Id: string): Promise<Post> {
 }
 
 // Check if user exists, if not insert them
-export async function ensureUserExists(auth0Id: string, fullName: string) {
+export async function ensureUserExists(auth0Id: string, name?: string) {
   const existingUser = await db('users').where({ id: auth0Id }).first()
+
+  const safeName = name?.trim() || 'Unknown User'
+
   if (!existingUser) {
     await db('users').insert({
       id: auth0Id,
-      name: fullName,
+      name: safeName,
     })
   }
-  return existingUser || { id: auth0Id, full_name: fullName }
+
+  return existingUser || { id: auth0Id, name: safeName }
 }
 
 // DELETE post by id
