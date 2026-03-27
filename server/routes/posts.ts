@@ -36,18 +36,20 @@ router.get('/:id', async (req, res) => {
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   const { post } = req.body as { post: PostData }
   const auth0Id = req.auth?.sub
-  const givenName = req.auth?.given_name || ''
-  const familyName = req.auth?.family_name || ''
-  const fullName = req.auth?.name || `${givenName} ${familyName}`.trim()
 
   if (!post) return res.status(400).send('Bad request: post data is required')
   if (!auth0Id) return res.status(401).send('Unauthorized')
 
-  try {
-    // ✅ Ensure user exists (DB function)
-    await db.ensureUserExists(auth0Id, fullName)
+  // Use nickname first, fallback to name, fallback to Unknown User
+  const name = req.auth?.nickname?.trim() 
+           || req.auth?.name?.trim() 
+           || 'Unknown User'
 
-    // ✅ Add the post (DB function)
+  try {
+    // Ensure user exists
+    await db.ensureUserExists(auth0Id, name)
+
+    // Add post
     const newPost = await db.addPost(post, auth0Id)
 
     res.status(201).json({ post: newPost })
