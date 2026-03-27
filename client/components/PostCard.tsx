@@ -10,7 +10,10 @@ function PostCard({ title, entry, date, id }) {
   const formattedDate = date_1.toLocaleDateString()
 
   return (
-    <div onClick={handleClick} className="rounded-xl border-2 p-6 shadow-lg">
+    <div
+      onClick={handleClick}
+      className="cursor-pointer rounded-xl border-2 p-6 shadow-lg"
+    >
       <div className="flex items-baseline justify-between">
         <h1 className="text-5xl">{title}</h1>
         <p>{formattedDate}</p>
