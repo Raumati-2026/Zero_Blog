@@ -29,7 +29,7 @@ export async function ensureUserExists(auth0Id: string, fullName: string) {
   if (!existingUser) {
     await db('users').insert({
       id: auth0Id,
-      full_name: fullName,
+      name: fullName,
     })
   }
   return existingUser || { id: auth0Id, full_name: fullName }
